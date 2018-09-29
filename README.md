@@ -13,3 +13,13 @@ mechanical includes 3DParts and Assembly two folders. 3DParts folder maintains a
 ## ros
 ros folder keeps all ROS-related packages to the handy arm, which includes description, control, gazebo and MoveIt! package.
 There are two verisons of Handy, one is the normal model which the other one is mesh-simplified model. Each has the four above packages.
+
+### how to do motion planning in the real world for Handy
+```
+1. roslaunch finalarm_cotrol controller_manager.launch
+2. roslaunch finalarm_control start_controller.launch
+3. roslaunch finalarm_description robot_state_pub.launch
+4. roslaunch finalarm_moveit_config move_group.launch
+5. roslaunch finalarm_moveit_config moveit_rviz.launch
+6. launch the file you write for Handy to do something like picking object, i.e. roslaunch handy_experiment pick.launch
+```
