@@ -8,7 +8,7 @@ your own robot arm MoveIt! package.
 
 ## mechanical
 mechanical includes 3DParts and Assembly two folders. 3DParts folder maintains all the files including Solidworks file, 
-3Dprinting file and drawing that belong to individual piece.
+3Dprinting file and drawing that belong to individual piece. Assembly holds models for the whole arm and each link.
 
 ## ros
 ros folder keeps all ROS-related packages to the handy arm, which includes description, control, gazebo and MoveIt! package.
