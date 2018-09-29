@@ -20,17 +20,17 @@ There are two verisons of Handy, one is the normal model which the other one is 
 2. If you just need finalarm_conrtol, finalarm_description and finalarm_moveit_config packages, in order to compile all packages out, you additionally need a package named dynamixel_motor which applies designed controllers for dynamixel motors.
 
 ### How to do motion planning in the real world for Handy
-*The first step you need to launch controller manager which will start a node responsible for managing all loaded controllers
+ The first step you need to launch controller manager which will start a node responsible for managing all loaded controllers
 
-*The second step is loading configuration for individual controller 
+ The second step is loading configuration for individual controller 
 
-*The third step is mainly starting nodes which will publish integrated information of all controllers and transformation information between each links 
+ The third step is mainly starting nodes which will publish integrated information of all controllers and transformation information between each links 
 
-*The fourth step is to launch move_group node which does all motion planning, collision checking and etc jobs
+ The fourth step is to launch move_group node which does all motion planning, collision checking and etc jobs
 
-*The fifth step is to run rviz for visualization
+ The fifth step is to run rviz for visualization
 
-*The sixth step is to run code that you write for Handy to let it do things you want it to do
+ The sixth step is to run code that you write for Handy to let it do things you want it to do
 ```
 1. roslaunch finalarm_cotrol controller_manager.launch
 2. roslaunch finalarm_control start_controller.launch
