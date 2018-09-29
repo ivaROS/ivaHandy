@@ -1,0 +1,6 @@
+The problem you may meet when load arm model in gazebo is arm is unstable and keeps shaking. Even worst, it may explode link by link.
+In order to make your arm stable in gazebo and implement control for it, here are some tips:
+
+1. Firstly, turn collision and gravity off to make sure the passive behavior of your arm is correct. Basically, the inertial moments should be the one needed modification if you generate your urdf from Solidworks. If the arm is still unstable after the inertial moments are corrected, you can try to add tag <implicitSpringDamper>True</implicitSpringDamper> to each joint. It may help. Here is the official tutorial from gazebo, link:http://gazebosim.org/tutorials/?tut=ros_urdf.
+
+2. After the passive behavior of arm is correct, you are close to success and just need to implement ros control. Here is the official tutorial from gazebo, link:http://gazebosim.org/tutorials/?tut=ros_control. My suggesstion is to go through tutorial and find some examples to follow. There may be some small problems caused by ros version. When you meet it, just google it and you will find solution.

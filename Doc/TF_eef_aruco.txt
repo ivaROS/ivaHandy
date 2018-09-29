@@ -1,0 +1,17 @@
+TF from coordinate_eef to coordinate_aruco_tag:
+
+1(Side):
+x:0.0369
+y:0.0
+z:-0.13275
+roll:1.5708
+pitch:9.744E-21
+yaw:-1.5708
+
+2(Back):
+x:-0.0001
+y:-0.01825
+z:-0.13275
+roll:-1.5708
+pitch:-1.0569E-1
+yaw:-3.1416

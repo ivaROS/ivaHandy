@@ -1,0 +1,645 @@
+<robot
+  name="finalarm_simplified_description">
+
+  <!-- the namespace of controller manager should be the same as the spawner -->
+  <gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/finalarm_simplified</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
+
+  <link name="root">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size = "0 0 0"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size = "0 0 0"/> 
+      </geometry>
+    </collision>     
+  </link>
+
+  <!-- Used for fixing robot to Gazebo 'base_link' -->
+  <link name="world"/> 
+  <joint name="connect_root_and_world" type="fixed">
+    <parent link="world"/>
+    <child link="root"/>
+    <axis xyz="0 0 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0" />  
+  </joint>
+
+  <joint name="root_to_base_link" type="fixed">
+    <parent link="root"/>
+    <child link="base_link"/>
+    <axis xyz="0 0 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0" />  
+  </joint>
+
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.0164 -8.67361737988404E-19 0.0311"
+        rpy="0 0 0" />
+      <mass
+        value="0.481547424" />
+      <inertia
+        ixx="0.00259388526"
+        ixy="-0.00000005038"
+        ixz="-0.00033538856"
+        iyy="0.00279542583"
+        iyz="-0.00000008121"
+        izz="0.00116940616" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="link_2">
+    <inertial>
+      <origin
+        xyz="-1.38777878078145E-17 -4.33680868994202E-18 -0.078375"
+        rpy="0 0 0" />
+      <mass
+        value="0.7142784" />
+      <inertia
+        ixx="0.00096626194"
+        ixy="-0.00000006431"
+        ixz="0.00000032990"
+        iyy="0.00575735994"
+        iyz="-0.00039309867"
+        izz="0.00066079574" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_1"
+    type="revolute">
+    <origin
+      xyz="0 0 0.0622"
+      rpy="3.1416 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="link_2" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="6"
+      velocity="2" />
+    <dynamics damping="0.5"/>
+  </joint>
+  <link
+    name="link_3">
+    <inertial>
+      <origin
+        xyz="0.00913796893535261 -0.110721113647521 0.000700000000000008"
+        rpy="0 0 0" />
+      <mass
+        value="0.26363602" />
+      <inertia
+        ixx="0.00067487030"
+        ixy="-0.00005184685"
+        ixz="-0.00000255096"
+        iyy="0.00024791507"
+        iyz="0.00002448920"
+        izz="0.000052259169" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_2"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.14225"
+      rpy="1.5708 0 0" />
+    <parent
+      link="link_2" />
+    <child
+      link="link_3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.35"
+      upper="2.35"
+      effort="6"
+      velocity="2" />
+    <dynamics damping="0.5"/>
+  </joint>
+  <link
+    name="link_4">
+    <inertial>
+      <origin
+        xyz="0 -8.67361737988404E-19 -0.06225"
+        rpy="0 0 0" />
+      <mass
+        value="0.2302254" />
+      <inertia
+        ixx="0.00012288342"
+        ixy="-0.00000000216"
+        ixz="0.00000001618"
+        iyy="0.00011093520"
+        iyz="0.00000039768"
+        izz="0.00002956657" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_3"
+    type="revolute">
+    <origin
+      xyz="0 -0.1721 0.0007"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="link_3" />
+    <child
+      link="link_4" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="6"
+      velocity="2" />
+    <dynamics damping="0.5"/>
+  </joint>
+  <link
+    name="link_5">
+    <inertial>
+      <origin
+        xyz="-0.00941019053261395 0.12018845656372 -0.00050000000000005"
+        rpy="0 0 0" />
+      <mass
+        value="0.09729148" />
+      <inertia
+        ixx="0.00014398020"
+        ixy="-0.00001235082"
+        ixz="0.00000001592"
+        iyy="0.00003078676"
+        iyz="0.00000000000"
+        izz="0.00013784036" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_4"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.11"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="link_4" />
+    <child
+      link="link_5" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-2.6"
+      upper="2.6"
+      effort="6"
+      velocity="2" />
+    <dynamics damping="0.5"/>
+  </joint>
+  <link
+    name="link_6">
+    <inertial>
+      <origin
+        xyz="0 0 -0.0284"
+        rpy="0 0 0" />
+      <mass
+        value="0.0717838399999999" />
+      <inertia
+        ixx="0.00001425862"
+        ixy="0.00000000002"
+        ixz="0.00000001440"
+        iyy="0.00001225892"
+        iyz="-0.00000018076"
+        izz="0.00000782673" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_5"
+    type="revolute">
+    <origin
+      xyz="0 0.1551 -0.0005"
+      rpy="-1.5708 0 3.1416" />
+    <parent
+      link="link_5" />
+    <child
+      link="link_6" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="6"
+      velocity="2" />
+    <dynamics damping="0.5"/>
+  </joint>
+  <link
+    name="link_7">
+    <inertial>
+      <origin
+        xyz="-0.00826463614894074 0.044192432559462 0.000250000000000077"
+        rpy="0 0 0" />
+      <mass
+        value="0.07582828" />
+      <inertia
+        ixx="0.00002339630"
+        ixy="-0.00000217744"
+        ixz="0.00000002669"
+        iyy="0.00001609019"
+        iyz="-0.00000018683"
+        izz="0.00002459523" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_7.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_7.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_6"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.0448"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="link_6" />
+    <child
+      link="link_7" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.75"
+      upper="1.75"
+      effort="6"
+      velocity="2" />
+    <dynamics damping="0.5"/>
+  </joint>
+  <link
+    name="link_8">
+    <inertial>
+      <origin
+        xyz="-0.00258077730485411 0.00608919416388292 -0.0569223421804808"
+        rpy="0 0 0" />
+      <mass
+        value="0.4263865924" />
+      <inertia
+        ixx="0.00009442066"
+        ixy="-0.00002130242"
+        ixz="0.00000443479"
+        iyy="0.00007414341"
+        iyz="-0.00001347108"
+        izz="0.00009696489" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_8.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://finalarm_simplified_description/meshes/link_8.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_7"
+    type="revolute">
+    <origin
+      xyz="0.0035 0.0665 0.00025"
+      rpy="-1.5708 0 3.1416" />
+    <parent
+      link="link_7" />
+    <child
+      link="link_8" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="6"
+      velocity="2" />
+    <dynamics damping="0.5"/>
+  </joint>
+  <link
+    name="link_eef" />
+  <joint
+    name="joint_eef"
+    type="fixed">
+    <origin
+      xyz="0 0 -0.13275"
+      rpy="3.14159265358979 0 3.14159265358979" />
+    <parent
+      link="link_8" />
+    <child
+      link="link_eef" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <gazebo reference="base_link">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+  <gazebo reference="link_2">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+  <gazebo reference="link_3">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+  <gazebo reference="link_4">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+  <gazebo reference="link_5">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+  <gazebo reference="link_6">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+  <gazebo reference="link_7">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+  <gazebo reference="link_8">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>True</selfCollide>
+  </gazebo>
+
+  <gazebo reference="joint_1">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="joint_2">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="joint_3">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="joint_4">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="joint_5">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="joint_6">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="joint_7">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+
+  <!-- transmission that link actuators to joints-->
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran4">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_4">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_4">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran5">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_5">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_5">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran6">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_6">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_6">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran7">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_7">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_7">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+</robot>

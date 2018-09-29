@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<robot>
+  <!-- the namespace of controller manager should be the same as the spawner -->
+  <gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/finalarm_simplified</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="base_link">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>False</selfCollide>
+  </gazebo>
+  <gazebo reference="link_2">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>False</selfCollide>
+  </gazebo>
+  <gazebo reference="link_3">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>False</selfCollide>
+  </gazebo>
+  <gazebo reference="link_4">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>False</selfCollide>
+  </gazebo>
+  <gazebo reference="link_5">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>False</selfCollide>
+  </gazebo>
+  <gazebo reference="link_6">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>False</selfCollide>
+  </gazebo>
+  <gazebo reference="link_7">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>False</selfCollide>
+  </gazebo>
+  <gazebo reference="link_8">
+    <turnGravityOff>False</turnGravityOff>
+    <selfCollide>False</selfCollide>
+  </gazebo>
+
+  <gazebo reference="joint_1">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="joint_2">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="joint_3">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="joint_4">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="joint_5">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="joint_6">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="joint_7">
+    <implicitSpringDamper>True</implicitSpringDamper>
+  </gazebo>
+
+  <!-- camera -->
+    <gazebo reference="camera_link">  
+      <sensor type="depth" name="camera">
+        <always_on>true</always_on>
+        <update_rate>20.0</update_rate>
+        <camera>
+          <horizontal_fov>${60.0*3.1415926535897931/180.0}</horizontal_fov>
+          <image>
+            <format>B8G8R8</format>
+            <width>640</width>
+            <height>480</height>
+          </image>
+          <clip>
+            <near>0.05</near>
+            <far>8.0</far>
+          </clip>
+        </camera>
+        <plugin name="kinect_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+          <cameraName>camera</cameraName>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>10</updateRate>
+          <imageTopicName>rgb/image_raw</imageTopicName>
+          <depthImageTopicName>depth/image_raw</depthImageTopicName>
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
+          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <frameName>camera_depth_optical_frame</frameName>
+          <baseline>0.1</baseline>
+          <distortion_k1>0.0</distortion_k1>
+          <distortion_k2>0.0</distortion_k2>
+          <distortion_k3>0.0</distortion_k3>
+          <distortion_t1>0.0</distortion_t1>
+          <distortion_t2>0.0</distortion_t2>
+          <pointCloudCutoff>0.4</pointCloudCutoff>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+</robot>

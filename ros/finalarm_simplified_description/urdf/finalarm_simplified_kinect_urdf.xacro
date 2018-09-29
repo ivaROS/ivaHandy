@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+ 
+<robot name="finalarm_simplified_kinect" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find finalarm_simplified_description)/urdf/finalarm_simplified.urdf.xacro" />
+  <xacro:include filename="$(find finalarm_simplified_description)/urdf/kinect.urdf.xacro"/>
+  
+  <finalarm_simplified/>
+  <sensor_kinect  parent="base_link"/>
+</robot>

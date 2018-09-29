@@ -1,0 +1,2 @@
+1. When assemble the whole arm in Solidworks, try to assemble all parts into different links, i.e. if your arm has 7 DOF which means it has 8 links, you need first get 8 sub-assemblies and then assemble them into the final arm assembly.
+2. The mate between the nearby two links should be one concentric and one coincident.
