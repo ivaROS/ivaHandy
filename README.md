@@ -14,7 +14,12 @@ mechanical includes 3DParts and Assembly two folders. 3DParts folder maintains a
 ros folder keeps all ROS-related packages to the handy arm, which includes description, control, gazebo and MoveIt! package.
 There are two verisons of Handy, one is the normal model which the other one is mesh-simplified model. Each has the four above packages.
 
-### how to do motion planning in the real world for Handy
+### Dependency
+1. If you'd like to use finalarm_gazebo package, you should git clone balabala packages to your workspace since gazebo has dependencies on these packages if you want to load controllers in gazebo.
+
+2. If you just need finalarm_conrtol, finalarm_description and finalarm_moveit_config packages, in order to compile all packages out, you additionally need a package named dynamixel_motor which applies designed controllers for dynamixel motors.
+
+### How to do motion planning in the real world for Handy
 *The first step you need to launch controller manager which will start a node responsible for managing all loaded controllers
 
 *The second step is loading configuration for individual controller 
