@@ -1,6 +1,0 @@
-1. First you need to do sudo chmod 666 /dev/ttyUSB0
-   Then launch the controller manager for all controllers: roslaunch finalarm_control controller_manager.launch
-2. roslaunch finalarm_control start_controller.launch ##load configuration for each controller
-3. roslaunch finalarm_description robot_state_pub.launch ##start tf 
-4. roslaunch finalarm_moveit_config move_group.launch
-5. roslaunch finalarm_moveit_config moveit_rviz.launch
