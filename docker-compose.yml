@@ -1,0 +1,8 @@
+# Launch the controller and expose the master
+version: "3.8"
+services:
+  controller_manager:
+    build: .
+    volumes:
+      - ./:/app/src/ivaHandy/
+    command: roslaunch finalarm_control controller_manager.launch
