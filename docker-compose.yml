@@ -21,6 +21,7 @@ services:
       - master
     volumes:
       - ./:/app/src/ivaHandy/
+      - ./bin:/app/bin/
     devices:
       - /dev/ttyUSB0
     network_mode: host
@@ -29,25 +30,33 @@ services:
     privileged: true
 
   # NOTE: this will die once it has initialized the controllers
-  # start_controller:
-  #   <<: *manager
-  #   restart: on-failure
-  #   command: roslaunch --wait finalarm_control start_controller.launch
-  #   depends_on:
-  #     - controller_manager
+  start_controller:
+    <<: *manager
+    restart: on-failure
+    command: roslaunch --wait finalarm_control start_controller.launch
+    depends_on:
+      - controller_manager
 
-  # robot_state_pub:
-  #   <<: *manager
-  #   restart: on-failure
-  #   command: roslaunch --wait finalarm_description robot_state_pub.launch
-  #   depends_on:
-  #     - controller_manager
-  #     - start_controller
+  robot_state_pub:
+    <<: *manager
+    restart: on-failure
+    command: |
+      bash -c "
+        bin/wait_for_topic_pattern.sh 'finalarm_position_controller_' &&
+        stdbuf -o L roslaunch --wait finalarm_description robot_state_pub.launch
+      "
+    depends_on:
+      - start_controller
 
-  # move_group:
-  #   <<: *manager
-  #   restart: on-failure
-  #   command: roslaunch --wait finalarm_moveit_config move_group.launch
-  #   depends_on:
-  #     - robot_state_pub
+  move_group:
+    <<: *manager
+    restart: on-failure
+    command: |
+      bash -c "
+        sleep 10 &&
+        bin/wait_for_topic_pattern.sh 'joint_states' &&
+        stdbuf -o L roslaunch --wait finalarm_moveit_config move_group.launch
+      "    
+    depends_on:
+      - robot_state_pub
   

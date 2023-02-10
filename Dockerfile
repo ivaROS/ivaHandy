@@ -8,6 +8,13 @@ RUN apt-get update && \
         build-essential \
         git
 
+# use the follwing command in a running container to find dependencies that we can install ahead of time
+# rosdep install --from-paths src --ignore-src -r -y --simulate --reinstall
+RUN apt-get install -y \
+    ros-kinetic-moveit-simple-controller-manager \
+    gazebo7 \
+    python-serial
+
 # initalize rosdep
 RUN rosdep init && rosdep update --include-eol-distros
 
@@ -23,9 +30,9 @@ RUN rosdep install --from-paths src --ignore-src -r -y
 RUN /ros_entrypoint.sh catkin_make
 
 # copy in our own entrypoint
-COPY bin/ros_entrypoint.sh ./
+ADD bin ./bin
 ADD . src/ivaHandy
 RUN rosdep install --from-paths src --ignore-src -r -y
-RUN /app/ros_entrypoint.sh catkin_make
+RUN /app/bin/ros_entrypoint.sh catkin_make
 
-ENTRYPOINT ["/app/ros_entrypoint.sh"]
+ENTRYPOINT ["/app/bin/ros_entrypoint.sh"]
