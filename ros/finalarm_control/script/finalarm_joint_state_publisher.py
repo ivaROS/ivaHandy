@@ -4,6 +4,7 @@ import rospy
 
 from sensor_msgs.msg import JointState as JointStateMoveIt
 from dynamixel_msgs.msg import JointState as JointStateDynamixel
+from functools import partial
 
 
 class JointStatePublisher:
@@ -21,9 +22,8 @@ class JointStatePublisher:
 
         # Start controller state subscribers
         for idx in range(self.num_joints):
-            callback = lambda msg: self.controller_state_handler(idx, msg)
             topic = "/finalarm_position_controller_{}/state".format(idx + 1)
-            rospy.Subscriber(topic, JointStateDynamixel, callback)
+            rospy.Subscriber(topic, JointStateDynamixel, partial(self.controller_state_handler, idx))
 
         # Start publisher
         self.joint_states_pub = rospy.Publisher("/joint_states", JointStateMoveIt, queue_size=100)
