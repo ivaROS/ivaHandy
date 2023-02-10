@@ -24,7 +24,7 @@ class JointStatePublisher():
         self.joint1velocity = 0.0
         self.joint1load = 0.0
 
-	self.joint2name = ''
+        self.joint2name = ''
         self.joint2current_pos = 0.0
         self.joint2velocity = 0.0
         self.joint2load = 0.0
@@ -34,7 +34,7 @@ class JointStatePublisher():
         self.joint3velocity = 0.0
         self.joint3load = 0.0
 
-	self.joint4name = ''
+        self.joint4name = ''
         self.joint4current_pos = 0.0
         self.joint4velocity = 0.0
         self.joint4load = 0.0
@@ -44,7 +44,7 @@ class JointStatePublisher():
         self.joint5velocity = 0.0
         self.joint5load = 0.0
 
-	self.joint6name = ''
+        self.joint6name = ''
         self.joint6current_pos = 0.0
         self.joint6velocity = 0.0
         self.joint6load = 0.0
@@ -54,25 +54,25 @@ class JointStatePublisher():
         self.joint7velocity = 0.0
         self.joint7load = 0.0
 
-	self.joint8name = ''
+        self.joint8name = ''
         self.joint8current_pos = 0.0
         self.joint8velocity = 0.0
         self.joint8load = 0.0
 
-	self.joint9name = ''
+        self.joint9name = ''
         self.joint9current_pos = 0.0
         self.joint9velocity = 0.0
         self.joint9load = 0.0
 
         # Start controller state subscribers
         rospy.Subscriber('/finalarm_position_controller_1/state', JointStateDynamixel, self.controller_state_handler_1)
-	rospy.Subscriber('/finalarm_position_controller_2/state', JointStateDynamixel, self.controller_state_handler_2)
+        rospy.Subscriber('/finalarm_position_controller_2/state', JointStateDynamixel, self.controller_state_handler_2)
         rospy.Subscriber('/finalarm_position_controller_3/state', JointStateDynamixel, self.controller_state_handler_3)
-	rospy.Subscriber('/finalarm_position_controller_4/state', JointStateDynamixel, self.controller_state_handler_4)
+        rospy.Subscriber('/finalarm_position_controller_4/state', JointStateDynamixel, self.controller_state_handler_4)
         rospy.Subscriber('/finalarm_position_controller_5/state', JointStateDynamixel, self.controller_state_handler_5)
-	rospy.Subscriber('/finalarm_position_controller_6/state', JointStateDynamixel, self.controller_state_handler_6)
+        rospy.Subscriber('/finalarm_position_controller_6/state', JointStateDynamixel, self.controller_state_handler_6)
         rospy.Subscriber('/finalarm_position_controller_7/state', JointStateDynamixel, self.controller_state_handler_7)
-	rospy.Subscriber('/finalarm_position_controller_8/state', JointStateDynamixel, self.controller_state_handler_8)
+        rospy.Subscriber('/finalarm_position_controller_8/state', JointStateDynamixel, self.controller_state_handler_8)
         rospy.Subscriber('/finalarm_position_controller_9/state', JointStateDynamixel, self.controller_state_handler_9)
 
         # Start publisher
