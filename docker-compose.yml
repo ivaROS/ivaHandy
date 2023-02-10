@@ -1,4 +1,8 @@
-# Launch the controller and expose the master
+# Launch a ros master with the controller manager and associated services
+#
+# This configuration is for testing out Handy. See the `docs/docker.md` for
+# more details on this configuaration file.
+#
 version: "3.8"
 
 services:
@@ -19,14 +23,12 @@ services:
     command: stdbuf -o L roslaunch --wait finalarm_control controller_manager.launch
     depends_on:
       - master
+    network_mode: host
     volumes:
       - ./:/app/src/ivaHandy/
       - ./bin:/app/bin/
     devices:
       - /dev/ttyUSB0
-    network_mode: host
-    environment:
-      - ROS_MASTER_URI=http://localhost:11311
     privileged: true
 
   # NOTE: this will die once it has initialized the controllers
@@ -53,7 +55,6 @@ services:
     restart: on-failure
     command: |
       bash -c "
-        sleep 10 &&
         bin/wait_for_topic_pattern.sh 'joint_states' &&
         stdbuf -o L roslaunch --wait finalarm_moveit_config move_group.launch
       "    

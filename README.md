@@ -26,6 +26,14 @@ There are two verisons of Handy, one is the normal model which the other one is 
 
 ### real world motion planning with Handy
 
+Ensure that the current user is part of the `dialup` group.
+If you get permission issues connecting to `/dev/ttyUSB0`, run the following and logout+login.
+
+```bash
+sudo usermod -aG dialup $USER
+```
+
+Launch handy with the following commands:
 
 ```bash
 # start a node responsible for managing loaded controllers
@@ -46,3 +54,14 @@ roslaunch finalarm_moveit_config moveit_rviz.launch
 # launch the file you write for Handy to do something like picking object
 roslaunch handy_experiment pick.launch
 ```
+
+You can run the above using `docker-compose` instead:
+
+```bash
+docker-compose up
+
+# rviz for visualization
+roslaunch finalarm_moveit_config moveit_rviz.launch
+```
+
+Read [docs/docker.md](docs/docker.md) for more details.

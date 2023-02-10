@@ -8,14 +8,17 @@ RUN apt-get update && \
         build-essential \
         git
 
-# use the follwing command in a running container to find dependencies that we can install ahead of time
-# rosdep install --from-paths src --ignore-src -r -y --simulate --reinstall
+# use the following command in a running container to find dependencies that we
+# can install ahead of time
+#
+#   rosdep install --from-paths src --ignore-src -r -y --simulate --reinstall
 RUN apt-get install -y \
     ros-kinetic-moveit-simple-controller-manager \
     gazebo7 \
     python-serial
 
-# initalize rosdep
+# Initalize rosdep; note that kinetic is EOL so we need to include the following
+# flag. If we leave it out, we will miss installing important dependencies.
 RUN rosdep init && rosdep update --include-eol-distros
 
 WORKDIR /app
