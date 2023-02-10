@@ -1,8 +1,50 @@
 # Launch the controller and expose the master
 version: "3.8"
+
 services:
-  controller_manager:
-    build: .
+  # http://wiki.ros.org/docker/Tutorials/Compose
+  master:
+    restart: always
+    image: ros:kinetic-ros-core-xenial
+    command: stdbuf -o L roscore
+    network_mode: host
+
+  controller_manager: &manager
+    build:
+      context: .
+      cache_from:
+        - ivalab/handy:latest
+    image: ivalab/handy:latest
+    command: roslaunch --wait finalarm_control controller_manager.launch
+    depends_on:
+      - master
     volumes:
       - ./:/app/src/ivaHandy/
-    command: roslaunch finalarm_control controller_manager.launch
+    devices:
+      - /dev/ttyUSB0
+    network_mode: host
+    environment:
+      - ROS_MASTER_URI=http://localhost:11311
+
+  # NOTE: this will die once it has initialized the controllers
+  start_controller:
+    <<: *manager
+    restart: on-failure
+    command: roslaunch --wait finalarm_control start_controller.launch
+    depends_on:
+      - controller_manager
+
+  # robot_state_pub:
+  #   <<: *manager
+  #   restart: on-failure
+  #   command: roslaunch finalarm_description robot_state_pub.launch
+  #   depends_on:
+  #     - controller_manager
+  #     - start_controller
+
+  # move_group:
+  #   <<: *manager
+  #   command: roslaunch finalarm_moveit_config move_group.launch
+  #   depends_on:
+  #     - robot_state_pub
+  

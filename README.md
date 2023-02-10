@@ -26,16 +26,23 @@ There are two verisons of Handy, one is the normal model which the other one is 
 
 ### real world motion planning with Handy
 
-* The first step you need to launch controller manager which will start a node responsible for managing all loaded controllers
-* The second step is loading configuration for individual controller
-* The third step is mainly starting nodes which will publish integrated information of all controllers and transformation information between each links
-* The fourth step is to launch move_group node which does all motion planning, collision checking and etc jobs
-* The fifth step is to run rviz for visualization
-* The sixth step is to run code that you write for Handy to let it do things you want it to do
 
-1. roslaunch finalarm_control controller_manager.launch
-2. roslaunch finalarm_control start_controller.launch
-3. roslaunch finalarm_description robot_state_pub.launch
-4. roslaunch finalarm_moveit_config move_group.launch
-5. roslaunch finalarm_moveit_config moveit_rviz.launch
-6. launch the file you write for Handy to do something like picking object, i.e. roslaunch handy_experiment pick.launch
+```bash
+# start a node responsible for managing loaded controllers
+roslaunch finalarm_control controller_manager.launch
+
+# load configuration for individual controller
+roslaunch finalarm_control start_controller.launch
+
+# publish integrated information of controllers and transformations between links
+roslaunch finalarm_description robot_state_pub.launch
+
+# node for motion planning, collision checking, etc. jobs
+roslaunch finalarm_moveit_config move_group.launch
+
+# rviz for visualization
+roslaunch finalarm_moveit_config moveit_rviz.launch
+
+# launch the file you write for Handy to do something like picking object
+roslaunch handy_experiment pick.launch
+```
