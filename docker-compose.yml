@@ -1,0 +1,63 @@
+# Launch a ros master with the controller manager and associated services
+#
+# This configuration is for testing out Handy. See the `docs/docker.md` for
+# more details on this configuaration file.
+#
+version: "3.8"
+
+services:
+  # http://wiki.ros.org/docker/Tutorials/Compose
+  master:
+    restart: always
+    image: ros:kinetic-ros-core-xenial
+    command: stdbuf -o L roscore
+    network_mode: host
+
+  controller_manager: &manager
+    build:
+      context: .
+      cache_from:
+        - ivalab/handy:latest
+    image: ivalab/handy:latest
+    restart: always
+    command: stdbuf -o L roslaunch --wait finalarm_control controller_manager.launch
+    depends_on:
+      - master
+    network_mode: host
+    volumes:
+      - ./:/app/src/ivaHandy/
+      - ./bin:/app/bin/
+    devices:
+      - /dev/ttyUSB0
+    privileged: true
+
+  # NOTE: this will die once it has initialized the controllers
+  start_controller:
+    <<: *manager
+    restart: on-failure
+    command: roslaunch --wait finalarm_control start_controller.launch
+    depends_on:
+      - controller_manager
+
+  robot_state_pub:
+    <<: *manager
+    restart: on-failure
+    command: |
+      bash -c "
+        bin/wait_for_topic_pattern.sh 'finalarm_position_controller_' &&
+        stdbuf -o L roslaunch --wait finalarm_description robot_state_pub.launch
+      "
+    depends_on:
+      - start_controller
+
+  move_group:
+    <<: *manager
+    restart: on-failure
+    command: |
+      bash -c "
+        bin/wait_for_topic_pattern.sh 'joint_states' &&
+        stdbuf -o L roslaunch --wait finalarm_moveit_config move_group.launch
+      "    
+    depends_on:
+      - robot_state_pub
+  
