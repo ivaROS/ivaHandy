@@ -9,7 +9,7 @@ RUN apt-get update && \
         git
 
 # initalize rosdep
-RUN rosdep init && rosdep update
+RUN rosdep init && rosdep update --include-eol-distros
 
 WORKDIR /app
 # we add in our dependencies before building, to reduce future build steps

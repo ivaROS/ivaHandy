@@ -15,7 +15,8 @@ services:
       cache_from:
         - ivalab/handy:latest
     image: ivalab/handy:latest
-    command: roslaunch --wait finalarm_control controller_manager.launch
+    restart: always
+    command: stdbuf -o L roslaunch --wait finalarm_control controller_manager.launch
     depends_on:
       - master
     volumes:
@@ -25,26 +26,28 @@ services:
     network_mode: host
     environment:
       - ROS_MASTER_URI=http://localhost:11311
+    privileged: true
 
   # NOTE: this will die once it has initialized the controllers
-  start_controller:
-    <<: *manager
-    restart: on-failure
-    command: roslaunch --wait finalarm_control start_controller.launch
-    depends_on:
-      - controller_manager
+  # start_controller:
+  #   <<: *manager
+  #   restart: on-failure
+  #   command: roslaunch --wait finalarm_control start_controller.launch
+  #   depends_on:
+  #     - controller_manager
 
   # robot_state_pub:
   #   <<: *manager
   #   restart: on-failure
-  #   command: roslaunch finalarm_description robot_state_pub.launch
+  #   command: roslaunch --wait finalarm_description robot_state_pub.launch
   #   depends_on:
   #     - controller_manager
   #     - start_controller
 
   # move_group:
   #   <<: *manager
-  #   command: roslaunch finalarm_moveit_config move_group.launch
+  #   restart: on-failure
+  #   command: roslaunch --wait finalarm_moveit_config move_group.launch
   #   depends_on:
   #     - robot_state_pub
   
