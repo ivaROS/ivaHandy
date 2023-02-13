@@ -7,10 +7,10 @@ We can also use docker to encapsulate the ROS modules in the repo, so that the h
 
 ## quickstart
 
-Ensure the current user is part of the `dialup` (for access to `/dev/ttyUSB0`) and `docker` groups.
+Ensure the current user is part of the `dialout` (for access to `/dev/ttyUSB0`) and `docker` groups.
 
 ```bash
-sudo usermod -aG dialup $USER
+sudo usermod -aG dialout $USER
 sudo usermod -aG docker $USER
 ```
 
@@ -37,8 +37,12 @@ docker-compose up
 Now you are ready to run rviz.
 
 ```bash
+roslaunch finalarm_moveit_config move_group.launch
 roslaunch finalarm_moveit_config moveit_rviz.launch
 ```
+
+Note that the move group and the rviz commands have to be done with the same version with moveit.
+If we try to run rviz commands from a noetic host on the kinetic container, we will run into protocol issues.
 
 ## Dockerfile
 

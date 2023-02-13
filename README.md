@@ -26,11 +26,11 @@ There are two verisons of Handy, one is the normal model which the other one is 
 
 ### real world motion planning with Handy
 
-Ensure that the current user is part of the `dialup` group.
+Ensure that the current user is part of the `dialout` group.
 If you get permission issues connecting to `/dev/ttyUSB0`, run the following and logout+login.
 
 ```bash
-sudo usermod -aG dialup $USER
+sudo usermod -aG dialout $USER
 ```
 
 Launch handy with the following commands:
@@ -59,6 +59,9 @@ You can run the above using `docker-compose` instead:
 
 ```bash
 docker-compose up
+
+# node for motion planning, collision checking, etc. jobs
+roslaunch finalarm_moveit_config move_group.launch
 
 # rviz for visualization
 roslaunch finalarm_moveit_config moveit_rviz.launch

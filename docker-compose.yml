@@ -50,14 +50,3 @@ services:
     depends_on:
       - start_controller
 
-  move_group:
-    <<: *manager
-    restart: on-failure
-    command: |
-      bash -c "
-        bin/wait_for_topic_pattern.sh 'joint_states' &&
-        stdbuf -o L roslaunch --wait finalarm_moveit_config move_group.launch
-      "    
-    depends_on:
-      - robot_state_pub
-  
