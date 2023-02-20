@@ -1,7 +1,7 @@
 # Launch a ros master with the controller manager and associated services
 #
 # This configuration is for testing out Handy. See the `docs/docker.md` for
-# more details on this configuaration file.
+# more details on this configuration file.
 #
 version: "3.8"
 
@@ -11,7 +11,7 @@ services:
   handy: &base
     build:
       context: .
-      dockerfile: docker/Dockerfile.kinetic
+      dockerfile: docker/Dockerfile.noetic
       cache_from:
         - ivalab/handy:latest
     image: ivalab/handy:latest
@@ -26,7 +26,7 @@ services:
   # http://wiki.ros.org/docker/Tutorials/Compose
   master:
     restart: always
-    image: ros:kinetic-ros-core-xenial
+    image: ros:noetic-ros-core-focal
     command: stdbuf -o L roscore
     network_mode: host
 

@@ -1,0 +1,55 @@
+FROM ros:noetic-ros-base-focal
+
+RUN apt-get update && \
+    apt-get install -y \
+        apt-utils \
+        build-essential \
+        git \
+        python3-pip \
+        python-is-python3
+
+# use the following command in a running container to find dependencies that we
+# can install ahead of time
+#
+#   rosdep install --from-paths src --ignore-src -r -y --simulate --reinstall
+RUN apt-get install -y \
+    # from dynamixel
+    python3-serial \
+    # from handy
+    gazebo11 \
+    ros-noetic-moveit-simple-controller-manager \
+    ros-noetic-moveit-fake-controller-manager \
+    ros-noetic-moveit-kinematics \
+    ros-noetic-rviz \
+    ros-noetic-controller-manager \
+    ros-noetic-ros-control \
+    ros-noetic-moveit-ros-visualization \
+    ros-noetic-robot-state-publisher \
+    ros-noetic-moveit-planners-ompl \
+    ros-noetic-moveit-ros-move-group \
+    ros-noetic-effort-controllers \
+    ros-noetic-joint-state-publisher \
+    ros-noetic-joint-state-controller \
+    ros-noetic-xacro \
+    ros-noetic-ros-controllers \
+    ros-noetic-rqt-gui
+
+WORKDIR /app
+RUN mkdir src
+RUN cd src && git clone https://github.com/ivaROS/ivaDynamixel.git
+# pull any dependencies needed by the workspace
+RUN rosdep install --from-paths src --ignore-src -r -y
+
+# create the initial project using the system ros
+# NOTE: the src/ directory needs to exist at the initial make
+RUN /ros_entrypoint.sh catkin_make
+
+# copy in our own entrypoint
+ADD docker/bin ./bin
+
+ADD . src/ivaHandy
+RUN rosdep install --from-paths src --ignore-src -r -y
+RUN /app/bin/ros_entrypoint.sh catkin_make
+
+ENTRYPOINT ["/app/bin/ros_entrypoint.sh", "stdbuf", "-o", "L"]
+CMD ["true"]
