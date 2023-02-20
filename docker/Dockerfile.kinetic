@@ -1,6 +1,4 @@
-FROM ros:kinetic-ros-core-xenial
-
-ENV ROS_PYTHON_VERSION=2
+FROM ros:kinetic-ros-base-xenial
 
 RUN apt-get update && \
     apt-get install -y \
@@ -17,12 +15,7 @@ RUN apt-get install -y \
     gazebo7 \
     python-serial
 
-# Initalize rosdep; note that kinetic is EOL so we need to include the following
-# flag. If we leave it out, we will miss installing important dependencies.
-RUN rosdep init && rosdep update --include-eol-distros
-
 WORKDIR /app
-# we add in our dependencies before building, to reduce future build steps
 RUN mkdir src
 RUN cd src && git clone https://github.com/ivaROS/ivaDynamixel.git
 # pull any dependencies needed by the workspace
@@ -33,9 +26,11 @@ RUN rosdep install --from-paths src --ignore-src -r -y
 RUN /ros_entrypoint.sh catkin_make
 
 # copy in our own entrypoint
-ADD bin ./bin
+ADD docker/bin ./bin
+
 ADD . src/ivaHandy
 RUN rosdep install --from-paths src --ignore-src -r -y
 RUN /app/bin/ros_entrypoint.sh catkin_make
 
-ENTRYPOINT ["/app/bin/ros_entrypoint.sh"]
+ENTRYPOINT ["/app/bin/ros_entrypoint.sh", "stdbuf", "-o", "L"]
+CMD ["true"]

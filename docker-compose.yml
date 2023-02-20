@@ -6,6 +6,23 @@
 version: "3.8"
 
 services:
+  # base container -- will simply exit once brought up
+  # we can run commands via this container for running experiments, etc.
+  handy: &base
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.kinetic
+      cache_from:
+        - ivalab/handy:latest
+    image: ivalab/handy:latest
+    network_mode: host
+    volumes:
+      - ./:/app/src/ivaHandy/
+      - ./docker/bin:/app/bin/
+    devices:
+      - /dev/ttyUSB0
+    privileged: true
+
   # http://wiki.ros.org/docker/Tutorials/Compose
   master:
     restart: always
@@ -13,34 +30,24 @@ services:
     command: stdbuf -o L roscore
     network_mode: host
 
-  controller_manager: &manager
-    build:
-      context: .
-      cache_from:
-        - ivalab/handy:latest
-    image: ivalab/handy:latest
+  controller:
+    <<: *base
     restart: always
-    command: stdbuf -o L roslaunch --wait finalarm_control controller_manager.launch
+    command: roslaunch --wait finalarm_control controller_manager.launch
     depends_on:
       - master
-    network_mode: host
-    volumes:
-      - ./:/app/src/ivaHandy/
-      - ./bin:/app/bin/
-    devices:
-      - /dev/ttyUSB0
-    privileged: true
 
+  # start the dynamixel controller manager
   # NOTE: this will die once it has initialized the controllers
   start_controller:
-    <<: *manager
+    <<: *base
     restart: on-failure
     command: roslaunch --wait finalarm_control start_controller.launch
     depends_on:
-      - controller_manager
+      - controller
 
   robot_state_pub:
-    <<: *manager
+    <<: *base
     restart: on-failure
     command: |
       bash -c "

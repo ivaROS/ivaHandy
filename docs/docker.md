@@ -85,10 +85,10 @@ Refer to the README for the purpose of each stage.
 ```mermaid
 graph TD
     master
-    master --> controller_manager
-    controller_manager -.-> start_controller
+    master --> controller
+    controller -.-> start_controller
     start_controller -.->|inits motors| robot_state_pub
-    controller_manager --> robot_state_pub
+    controller --> robot_state_pub
     robot_state_pub --> move_group
 
     master --> robot_state_pub
