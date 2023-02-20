@@ -11,9 +11,26 @@ RUN apt-get update && \
 #
 #   rosdep install --from-paths src --ignore-src -r -y --simulate --reinstall
 RUN apt-get install -y \
-    ros-kinetic-moveit-simple-controller-manager \
+    # from dynamixel
+    python-serial \
+    # from handy
     gazebo7 \
-    python-serial
+    ros-kinetic-moveit-simple-controller-manager \
+    ros-kinetic-moveit-fake-controller-manager \
+    ros-kinetic-moveit-kinematics \
+    ros-kinetic-rviz \
+    ros-kinetic-controller-manager \
+    ros-kinetic-ros-control \
+    ros-kinetic-moveit-ros-visualization \
+    ros-kinetic-robot-state-publisher \
+    ros-kinetic-moveit-planners-ompl \
+    ros-kinetic-moveit-ros-move-group \
+    ros-kinetic-effort-controllers \
+    ros-kinetic-joint-state-publisher \
+    ros-kinetic-joint-state-controller \
+    ros-kinetic-xacro \
+    ros-kinetic-ros-controllers \
+    ros-kinetic-rqt-gui
 
 WORKDIR /app
 RUN mkdir src
