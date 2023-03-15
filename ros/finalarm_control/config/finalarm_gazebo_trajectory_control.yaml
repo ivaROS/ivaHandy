@@ -1,5 +1,5 @@
 finalarm:
-  joint_state_controller:
+  finalarm_joint_state_controller:
     type: joint_state_controller/JointStateController
     publish_rate: 50
 
@@ -16,12 +16,12 @@ finalarm:
       - joint_7
 
 # Position Controllers ----------------------------------------
-  joint_8_position_controller:
+  finalarm_position_controller_8:
     type: effort_controllers/JointPositionController
     joint: joint_8
     pid: {p: 500, i: 0.01, d: 0.0}
 
-  joint_9_position_controller:
+  finalarm_position_controller_9:
     type: effort_controllers/JointPositionController
     joint: joint_9
     pid: {p: 500, i: 0.01, d: 0.0}
