@@ -2,8 +2,7 @@
 
   <!-- the namespace of controller manager should be the same as the spawner -->
   <gazebo>
-  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/finalarm_simplified</robotNamespace>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
   </gazebo>

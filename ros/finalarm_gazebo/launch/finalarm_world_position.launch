@@ -4,7 +4,7 @@
   <!-- Load the URDF model only the parameter server -->
   <arg
     name="model"
-    default="$(find finalarm_description)/urdf/final_description.urdf.xacro"
+    default="$(find finalarm_description)/urdf/finalarm_description.urdf.xacro"
   />
   <param
     name="robot_description"
