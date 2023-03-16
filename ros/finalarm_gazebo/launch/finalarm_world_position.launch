@@ -2,12 +2,27 @@
   <include file="$(find finalarm_gazebo)/launch/empty_world.launch" />
 
   <!-- Load the URDF model only the parameter server -->
-  <param name="robot_description" textfile="$(find finalarm_description)/urdf/finalarm_description_position_control.urdf"/>
+  <arg
+    name="model"
+    default="$(find finalarm_description)/urdf/final_description.urdf.xacro"
+  />
+  <param
+    name="robot_description"
+    command="$(find xacro)/xacro $(arg model) use_gazebo:=true"
+  />
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
-  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-    args="-urdf -x 0 -y 0 -z 0.75 -model finalarm_description -param robot_description"/>
+  <node
+    name="urdf_spawner"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    respawn="false"
+    output="screen"
+    args="-urdf -x 0 -y 0 -z 0.75 -model finalarm_description -param robot_description"
+  />
 
   <!-- launch files -->
-  <include file="$(find finalarm_control)/launch/finalarm_gazebo_position_control.launch"/>
+  <include
+    file="$(find finalarm_control)/launch/finalarm_gazebo_position_control.launch"
+  />
 </launch>

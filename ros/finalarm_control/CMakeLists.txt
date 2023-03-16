@@ -14,5 +14,6 @@ install(DIRECTORY script DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 install(
   PROGRAMS
     script/disable_torque_handy.py
+    script/joint_state_publisher.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
