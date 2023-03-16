@@ -1,10 +1,10 @@
 <launch>
-  <!-- Load joint controller configurations from YAML file to parameter server -->
-  <rosparam file="$(find finalarm_control)/config/finalarm_gazebo_controllers.yaml" command="load"/>
-
-  <!-- load the controllers -->
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" 
-    respawn="false" output="screen" args="
+  <include
+    file="$(find finalarm_control)/launch/_spawn_gazebo_controllers.launch"
+  >
+    <arg
+      name="spawner_args"
+      value="
         finalarm_position_controller_1
         finalarm_position_controller_2
         finalarm_position_controller_3
@@ -16,10 +16,6 @@
         finalarm_position_controller_9
         finalarm_joint_state_controller
       "
-  />
-
-  <!-- convert joint states to TF transforms for rviz, etc -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
-    respawn="false" output="screen" />
-
+    />
+  </include>
 </launch>
