@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
-import sys
 import rospy
-from dynamixel_controllers.srv import *
-from dynamixel_msgs.msg import *
+from dynamixel_msgs.msg import TorqueEnable
+from argparse import ArgumentParser
 
 # Enable/disable motor torque
 def set_torque_enable(joint, enable):
@@ -16,11 +15,14 @@ def set_torque_enable(joint, enable):
     except rospy.ServiceException as e:
         print("(Joint: {}) Torque Enable service call failed: {}".format(joint, enable))
 
-def usage():
-    return "{}".format(sys.argv[0])
+def parse_args():
+    parser = ArgumentParser(description='Disable torque for all joints of Handy')
+    parser.add_argument('--num_joints', type=int, default=9, help='Number of joints of Handy')
+    return parser.parse_args()
 
-def main(num_joints):
-    joint_list = [i+1 for i in range(num_joints)]
+def main():
+    args = parse_args()
+    joint_list = [i+1 for i in range(args.num_joints)]
     rospy.init_node('disable_torque_handy')
 
     for joint in joint_list:
@@ -28,5 +30,5 @@ def main(num_joints):
         set_torque_enable(joint, False)
 
 if __name__ == "__main__":
-    main(num_joints=9)
+    main()
     rospy.sleep(0.5)
