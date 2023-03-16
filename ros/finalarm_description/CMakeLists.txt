@@ -8,9 +8,9 @@ catkin_package()
 
 find_package(roslaunch)
 
-# use relative paths
-# file(GLOB xacro_files urdf/*.urdf.xacro)
-# xacro_add_files(${xacro_files} TARGET urdf)
+# build urdf files into the share directory for backwards compatibility
+file(GLOB xacro_files urdf/*.urdf.xacro)
+xacro_add_files(${xacro_files} INSTALL DESTINATION urdf)
 
 foreach(dir config launch meshes urdf)
 	install(DIRECTORY ${dir}/
