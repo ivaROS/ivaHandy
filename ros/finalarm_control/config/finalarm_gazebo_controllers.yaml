@@ -40,3 +40,16 @@ finalarm_position_controller_9:
 finalarm_joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 50
+
+# Note: the position controllers and trajectory controllers are exclusive to
+# each other. If you spawn both, you will get an error.
+finalarm_joint_trajectory_action_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - joint_1
+    - joint_2
+    - joint_3
+    - joint_4
+    - joint_5
+    - joint_6
+    - joint_7
