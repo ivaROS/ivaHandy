@@ -51,6 +51,8 @@ class JointStatePublisher:
         msg.effort = []
 
         for state in self.joint_states:
+            if not state.name:
+                continue
             msg.name.append(state.name)
             msg.position.append(state.current_pos)
             msg.velocity.append(state.velocity)

@@ -1,40 +1,15 @@
 <launch>
-  <include file="$(find gazebo_ros)/launch/empty_world.launch" />
   <!-- trajectory or position -->
   <arg name="control_mode" default="trajectory" />
   <arg name="spawn_args" default="-x 0 -y 0 -z 0.75" />
 
-  <!-- Load the URDF model only the parameter server -->
-  <arg
-    name="model"
-    default="$(find finalarm_description)/urdf/finalarm_description.urdf.xacro"
-  />
-  <param
-    name="robot_description"
-    command="$(find xacro)/xacro $(arg model) use_gazebo:=true"
-  />
-
-  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
-  <node
-    name="urdf_spawner"
-    pkg="gazebo_ros"
-    type="spawn_model"
-    respawn="false"
-    output="screen"
-    args="-urdf -model finalarm_description -param robot_description $(arg spawn_args)"
-  />
+  <include file="$(find finalarm_description)/launch/gazebo.launch">
+    <arg name="spawn_args" value="$(arg spawn_args)" />
+  </include>
 
   <!-- launch files -->
   <include file="$(find finalarm_control)/launch/gazebo_control.launch">
     <arg name="control_mode" value="$(arg control_mode)" />
   </include>
-  <node
-    name="robot_state_publisher"
-    pkg="robot_state_publisher"
-    type="robot_state_publisher"
-    respawn="false"
-    output="screen"
-  >
-    <param name="publish_frequency" value="50" />
-  </node>
+  <include file="$(find finalarm_description)/launch/robot_state_pub.launch" />
 </launch>
