@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <package>
   <name>finalarm_control</name>
-  <version>1.2.0</version>
+  <version>2.0.0</version>
  <description>
       controller manager for handy_v2 robot arm with 8 motors(1 motor for gripper)
   </description>
