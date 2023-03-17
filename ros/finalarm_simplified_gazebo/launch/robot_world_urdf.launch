@@ -1,0 +1,9 @@
+<launch>
+  <arg name="spawn_args" default="-x 0 -y 0 -z 0.75" />
+  <include file="$(find finalarm_simplified_gazebo)/launch/robot_world.launch">
+    <arg
+      name="model"
+      value="$(find finalarm_simplified_description)/urdf/finalarm_simplified_description.urdf"
+    />
+  </include>
+</launch>

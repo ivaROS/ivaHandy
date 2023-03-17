@@ -1,5 +1,8 @@
 <launch>
   <include file="$(find finalarm_gazebo)/launch/empty_world.launch" />
+  <!-- trajectory or position -->
+  <arg name="control_mode" default="trajectory" />
+  <arg name="spawn_args" default="-x 0 -y 0 -z 0.75" />
 
   <!-- Load the URDF model only the parameter server -->
   <arg
@@ -18,11 +21,11 @@
     type="spawn_model"
     respawn="false"
     output="screen"
-    args="-urdf -x 0 -y 0 -z 1 -model finalarm_description -param robot_description"
+    args="-urdf -model finalarm_description -param robot_description $(arg spawn_args)"
   />
 
   <!-- launch files -->
-  <include
-    file="$(find finalarm_control)/launch/finalarm_gazebo_trajectory_control.launch"
-  />
+  <include file="$(find finalarm_control)/launch/gazebo_control.launch">
+    <arg name="control_mode" value="$(arg control_mode)" />
+  </include>
 </launch>
