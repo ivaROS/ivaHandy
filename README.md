@@ -5,7 +5,7 @@ document and code for Handy arm include tutorials, mechanical files and ROS-rela
 ## Doc
 
 Doc includes tutorials about how to build your own robot arm. Contents contain the whole process starting from
-how to do assembly in Solidworks in order to  make urdf generation easier to use MoveIt! setup assitant to build
+how to do assembly in Solidworks in order to make urdf generation easier to use MoveIt! setup assistant to build
 your own robot arm MoveIt! package.
 
 ## mechanical
@@ -16,7 +16,7 @@ Mechanical includes 3DParts and Assembly two folders. 3DParts folder maintains a
 ## ros
 
 ros folder keeps all ROS-related packages to the handy arm, which includes description, control, gazebo and MoveIt! package.
-There are two verisons of Handy, one is the normal model which the other one is mesh-simplified model. Each has the four above packages.
+There are two versions of Handy, one is the normal model which the other one is mesh-simplified model. Each has the four above packages.
 
 ### dependencies
 
@@ -68,3 +68,30 @@ roslaunch finalarm_moveit_config moveit_rviz.launch
 ```
 
 Read [docs/docker.md](docs/docker.md) for more details.
+
+## launchfiles
+
+Here's a list of launch files that can be tested without access to the physical robot.
+
+```bash
+# check for urdf loading
+roslaunch finalarm_description display.launch
+# check robot position topics
+roslaunch finalarm_description gazebo.launch
+roslaunch finalarm_gazebo robot_world.launch
+roslaunch finalarm_gazebo robot_world.launch control_mode:=position
+# check operation of robot
+roslaunch finalarm_moveit_config demo.launch
+# check gazebo and moveit operate together
+roslaunch finalarm_gazebo robot_world_moveit.launch
+
+roslaunch finalarm_simplified_description display.launch
+roslaunch finalarm_simplified_description gazebo.launch
+roslaunch finalarm_simplified_gazebo robot_world.launch
+roslaunch finalarm_simplified_gazebo robot_world_urdf.launch
+roslaunch finalarm_simplified_gazebo robot_world_xacro.launch
+roslaunch finalarm_simplified_moveit_config demo.launch
+roslaunch finalarm_simplified_gazebo robot_world_moveit.launch
+```
+
+These are useful for manual testing, at least until some form of automated testing is implemented.

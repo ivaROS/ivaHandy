@@ -72,7 +72,8 @@ def parse_args():
     parser.add_argument(
         "--model_name", type=str, default="finalarm", help="Name of the robot model"
     )
-    return parser.parse_args()
+    args, _ = parser.parse_known_args()
+    return args
 
 
 if __name__ == "__main__":

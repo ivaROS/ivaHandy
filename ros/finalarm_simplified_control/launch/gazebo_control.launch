@@ -8,7 +8,10 @@
   >
       <arg
       name="spawner_args"
-      value="finalarm_joint_trajectory_action_controller"
+      value="
+          finalarm_joint_state_controller
+          finalarm_joint_trajectory_action_controller
+        "
     />
     </include>
 
@@ -26,8 +29,6 @@
             finalarm_position_controller_5
             finalarm_position_controller_6
             finalarm_position_controller_7
-            finalarm_position_controller_8
-            finalarm_position_controller_9
             finalarm_joint_state_controller
         "
     />

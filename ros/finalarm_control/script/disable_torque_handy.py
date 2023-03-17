@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-from dynamixel_msgs.msg import TorqueEnable
+from dynamixel_controllers.srv import TorqueEnable
 from argparse import ArgumentParser
 
 # Enable/disable motor torque
@@ -18,7 +18,8 @@ def set_torque_enable(joint, enable):
 def parse_args():
     parser = ArgumentParser(description='Disable torque for all joints of Handy')
     parser.add_argument('--num_joints', type=int, default=9, help='Number of joints of Handy')
-    return parser.parse_args()
+    args, _ = parser.parse_known_args()
+    return args
 
 def main():
     args = parse_args()

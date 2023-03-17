@@ -1,7 +1,5 @@
 <launch>
-  <include
-    file="$(find finalarm_simplified_gazebo)/launch/empty_world.launch"
-  />
+  <include file="$(find gazebo_ros)/launch/empty_world.launch" />
 
   <arg name="spawn_args" default="-x 0 -y 0 -z 1" />
 
@@ -26,4 +24,13 @@
   <include
     file="$(find finalarm_simplified_control)/launch/gazebo_control.launch"
   />
+  <node
+    name="robot_state_publisher"
+    pkg="robot_state_publisher"
+    type="robot_state_publisher"
+    respawn="false"
+    output="screen"
+  >
+    <param name="publish_frequency" value="50" />
+  </node>
 </launch>

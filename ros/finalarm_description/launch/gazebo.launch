@@ -1,5 +1,6 @@
 <launch>
   <include file="$(find gazebo_ros)/launch/empty_world.launch" />
+  <arg name="spawn_args" default="-x 0 -y 0 -z 0.75" />
   <arg
     name="model"
     default="$(find finalarm_description)/urdf/finalarm_description.urdf.xacro"
@@ -18,7 +19,7 @@
     name="spawn_model"
     pkg="gazebo_ros"
     type="spawn_model"
-    args="-urdf -param robot_description -model finalarm_description"
+    args="-urdf -model finalarm_description -param robot_description $(arg spawn_args)"
     respawn="false"
     output="screen"
   />
