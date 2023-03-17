@@ -23,6 +23,6 @@
     name="rviz"
     pkg="rviz"
     type="rviz"
-    args="-d $(find finalarm_description)/urdf.rviz"
+    args="-d $(find finalarm_description)/config/urdf.rviz"
   />
 </launch>
