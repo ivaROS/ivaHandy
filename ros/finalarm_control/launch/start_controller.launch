@@ -10,7 +10,6 @@
     default="$(find finalarm_control)/launch/_spawn_position_controller.launch"
   />
 
-  <include file="$(arg spawn_launch)"><arg name="index" value="0" /></include>
   <include file="$(arg spawn_launch)"><arg name="index" value="1" /></include>
   <include file="$(arg spawn_launch)"><arg name="index" value="2" /></include>
   <include file="$(arg spawn_launch)"><arg name="index" value="3" /></include>
