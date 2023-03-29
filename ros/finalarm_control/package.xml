@@ -28,6 +28,10 @@
   <run_depend>position_controllers</run_depend>
   <run_depend>joint_trajectory_controller</run_depend>
   <run_depend>robot_state_publisher</run_depend>
+  <!-- NOTE: reported issues with yaml imports in disable_torque_handy.py.
+    However, there is no reference to the yaml module anywhere in the code. We
+    should verify behavior in a clean environment. -->
+  <run_depend>python-yaml</run_depend>
 
   <run_depend>gazebo_ros_control</run_depend>
   <run_depend>rqt_gui</run_depend>
