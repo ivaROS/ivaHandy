@@ -2,18 +2,16 @@
  <!-- Load the URDF into the ROS Parameter Server -->
  <arg
     name="model"
-    default="$(find finalarm_description)/urdf/finalarm_description.urdf.xacro"
+    default="$(find finalarm_simplified_description)/urdf/finalarm_simplified_description.urdf"
   />
- <param
-    name="robot_description"
-    command="$(find xacro)/xacro $(arg model) use_gazebo:=true"
-  />
+ <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
 
   <!-- Disable torque on all humanoid joints/motors -->
   <node
     name="disable_torque_handy"
     pkg="finalarm_control"
     type="disable_torque_handy.py"
+    args="--num_joints 7"
   />
 
   <!-- Start Handy joint state publisher (dynamixel_msgs.msg JointState -> sensor_msgs.msg JointState) -->
@@ -21,6 +19,7 @@
     name="handy_joint_state_publisher"
     pkg="finalarm_control"
     type="joint_state_publisher.py"
+    args="--num_joints 7"
   />
 
   <!-- Convert joint states to TF transforms for rviz, etc -->
@@ -30,7 +29,8 @@
     type="robot_state_publisher"
     respawn="false"
     output="screen"
-  > <param name="publish_frequency" value="50" />
+  >
+    <!-- we need to remap the action controller to the simplified one -->
+    <param name="publish_frequency" value="50" />
   </node>
-
 </launch>

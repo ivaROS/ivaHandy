@@ -1,0 +1,15 @@
+<launch>
+  <arg name="index" />
+  <node
+    name="finalarm_controller_spawner_$(arg index)"
+    pkg="dynamixel_controllers"
+    type="controller_spawner.py"
+    args="
+      --manager=finalarm_manager
+      --port port_0
+      --type=simple
+      finalarm_position_controller_$(arg index)
+    "
+    output="screen"
+  />
+</launch>

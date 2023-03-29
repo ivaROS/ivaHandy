@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <package>
   <name>finalarm_control</name>
-  <version>1.2.0</version>
+  <version>2.0.0</version>
  <description>
       controller manager for handy_v2 robot arm with 8 motors(1 motor for gripper)
   </description>
@@ -20,12 +20,20 @@
   <build_depend>ros_controllers</build_depend>
 
   <run_depend>dynamixel_controllers</run_depend>
+  <run_depend>dynamixel_msgs</run_depend>
   <run_depend>ros_control</run_depend>
   <run_depend>ros_controllers</run_depend>
   <run_depend>controller_manager</run_depend>
   <run_depend>joint_state_controller</run_depend>
+  <run_depend>position_controllers</run_depend>
+  <run_depend>joint_trajectory_controller</run_depend>
   <run_depend>robot_state_publisher</run_depend>
+  <!-- NOTE: reported issues with yaml imports in disable_torque_handy.py.
+    However, there is no reference to the yaml module anywhere in the code. We
+    should verify behavior in a clean environment. -->
+  <run_depend>python-yaml</run_depend>
 
+  <run_depend>gazebo_ros_control</run_depend>
   <run_depend>rqt_gui</run_depend>
   <run_depend>effort_controllers</run_depend>
 

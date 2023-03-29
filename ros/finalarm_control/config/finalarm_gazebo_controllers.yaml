@@ -1,0 +1,55 @@
+finalarm_position_controller_1: &joint
+  type: position_controllers/JointPositionController
+  joint: joint_1
+  pid: {p: 10000, i: 0.01, d: 0.0}
+
+finalarm_position_controller_2:
+  <<: *joint
+  joint: joint_2
+
+finalarm_position_controller_3:
+  <<: *joint
+  joint: joint_3
+
+finalarm_position_controller_4:
+  <<: *joint
+  joint: joint_4
+
+finalarm_position_controller_5:
+  <<: *joint
+  joint: joint_5
+
+finalarm_position_controller_6:
+  <<: *joint
+  joint: joint_6
+
+finalarm_position_controller_7:
+  <<: *joint
+  joint: joint_7
+
+finalarm_position_controller_8:
+  type: position_controllers/JointPositionController
+  joint: joint_8
+  pid: {p: 1000, i: 0.01, d: 0.0}
+
+finalarm_position_controller_9:
+  type: position_controllers/JointPositionController
+  joint: joint_9
+  pid: {p: 1000, i: 0.01, d: 0.0}
+
+finalarm_joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+# Note: the position controllers and trajectory controllers are exclusive to
+# each other. If you spawn both, you will get an error.
+finalarm_joint_trajectory_action_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - joint_1
+    - joint_2
+    - joint_3
+    - joint_4
+    - joint_5
+    - joint_6
+    - joint_7

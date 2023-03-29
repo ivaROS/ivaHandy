@@ -1,80 +1,44 @@
 <launch>
-  <rosparam file="$(find finalarm_control)/config/finalarm_controllers.yaml" command="load"/>
+  <rosparam
+    file="$(find finalarm_control)/config/finalarm_controllers.yaml"
+    command="load"
+  />
 
-  <node name="finalarm_controller_spawner_1" pkg="dynamixel_controllers" type="controller_spawner.py"
-        args="--manager=finalarm_manager
-              --port port_0
-              --type=simple
-              finalarm_position_controller_1"
-        output="screen"/>
+  <arg name="spawn_end_effector_controller" default="true" />
+  <arg
+    name="spawn_launch"
+    default="$(find finalarm_control)/launch/_spawn_position_controller.launch"
+  />
 
-  <node name="finalarm_controller_spawner_2" pkg="dynamixel_controllers" type="controller_spawner.py"
-        args="--manager=finalarm_manager
-              --port port_0
-              --type=simple
-	      finalarm_position_controller_2"
-        output="screen"/>
+  <include file="$(arg spawn_launch)"><arg name="index" value="1" /></include>
+  <include file="$(arg spawn_launch)"><arg name="index" value="2" /></include>
+  <include file="$(arg spawn_launch)"><arg name="index" value="3" /></include>
+  <include file="$(arg spawn_launch)"><arg name="index" value="4" /></include>
+  <include file="$(arg spawn_launch)"><arg name="index" value="5" /></include>
+  <include file="$(arg spawn_launch)"><arg name="index" value="6" /></include>
+  <include file="$(arg spawn_launch)"><arg name="index" value="7" /></include>
 
-  <node name="finalarm_controller_spawner_3" pkg="dynamixel_controllers" type="controller_spawner.py"
-        args="--manager=finalarm_manager
-              --port port_0
-              --type=simple
-              finalarm_position_controller_3"
-        output="screen"/>
+  <group if="$(arg spawn_end_effector_controller)">
+    <include file="$(arg spawn_launch)"><arg name="index" value="8" /></include>
+    <include file="$(arg spawn_launch)"><arg name="index" value="9" /></include>
+  </group>
 
-  <node name="finalarm_controller_spawner_4" pkg="dynamixel_controllers" type="controller_spawner.py"
-        args="--manager=finalarm_manager
-              --port port_0
-              --type=simple
-              finalarm_position_controller_4"
-        output="screen"/>
-
-  <node name="finalarm_controller_spawner_5" pkg="dynamixel_controllers" type="controller_spawner.py"
-        args="--manager=finalarm_manager
-              --port port_0
-              --type=simple
-              finalarm_position_controller_5"
-        output="screen"/>
-
-  <node name="finalarm_controller_spawner_6" pkg="dynamixel_controllers" type="controller_spawner.py"
-        args="--manager=finalarm_manager
-              --port port_0
-              --type=simple
-              finalarm_position_controller_6"
-        output="screen"/>
-
-  <node name="finalarm_controller_spawner_7" pkg="dynamixel_controllers" type="controller_spawner.py"
-        args="--manager=finalarm_manager
-              --port port_0
-              --type=simple
-              finalarm_position_controller_7"
-        output="screen"/>
-
-  <node name="finalarm_controller_spawner_8" pkg="dynamixel_controllers" type="controller_spawner.py"
-        args="--manager=finalarm_manager
-              --port port_0
-              --type=simple
-              finalarm_position_controller_8"
-        output="screen"/>
-
-  <node name="finalarm_controller_spawner_9" pkg="dynamixel_controllers" type="controller_spawner.py"
-        args="--manager=finalarm_manager
-              --port port_0
-              --type=simple
-              finalarm_position_controller_9"
-        output="screen"/>
-
-  <node name="finalarm_action_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
-        args="--manager=finalarm_manager
-              --type=meta
-              finalarm_joint_trajectory_action_controller
-              finalarm_position_controller_1
-	      finalarm_position_controller_2
-              finalarm_position_controller_3
-              finalarm_position_controller_4
-              finalarm_position_controller_5
-              finalarm_position_controller_6
-              finalarm_position_controller_7"
-        output="screen"/>
+  <node
+    name="finalarm_action_controller_spawner"
+    pkg="dynamixel_controllers"
+    type="controller_spawner.py"
+    args="
+      --manager=finalarm_manager
+      --type=meta
+      finalarm_joint_trajectory_action_controller
+      finalarm_position_controller_1
+      finalarm_position_controller_2
+      finalarm_position_controller_3
+      finalarm_position_controller_4
+      finalarm_position_controller_5
+      finalarm_position_controller_6
+      finalarm_position_controller_7
+    "
+    output="screen"
+  />
 </launch>
-
